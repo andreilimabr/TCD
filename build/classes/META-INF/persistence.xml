@@ -1,0 +1,32 @@
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
+             version="2.0">
+   <persistence-unit name="lojacd" >
+      <provider>org.hibernate.ejb.HibernatePersistence</provider>
+      <!-- <jta-data-source>java:jboss/datasources/MysqlDS</jta-data-source> -->
+      <class>br.com.andreilima.tcd.model.Cliente</class>
+      <class>br.com.andreilima.tcd.model.Pedido</class>
+      <class>br.com.andreilima.tcd.model.ItemPedido</class>
+      <class>br.com.andreilima.tcd.model.Usuario</class>
+      <class>br.com.andreilima.tcd.model.Estoque</class>
+      <class>br.com.andreilima.tcd.model.MovimentacaoFinanceira</class>	
+      <class>br.com.andreilima.tcd.model.CaixaGeral</class>
+      <class>br.com.andreilima.tcd.model.Vitrine</class>
+      <class>br.com.andreilima.tcd.model.ItemVitrine</class>
+      <class>br.com.andreilima.tcd.model.Produto</class>
+      <class>br.com.andreilima.tcd.model.CategoriaProduto</class>
+      <properties>
+        
+        <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect"/>
+        <property name="hibernate.hbm2ddl.auto" value="update"/>
+        <property name="hibernate.show_sql" value="true"/>
+        <property name="hibernate.format_sql" value="true"/>
+        <!-- <property name="connection.datasource" value="mysqlDS"/> -->
+        <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+		<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost/db_loja_cd" />
+		<property name="javax.persistence.jdbc.user" value="root" />
+		<property name="javax.persistence.jdbc.password" value="" />
+      </properties>
+   </persistence-unit>
+</persistence>
