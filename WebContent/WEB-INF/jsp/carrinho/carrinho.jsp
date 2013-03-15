@@ -50,6 +50,7 @@
 				</tr>
 		</table>
 	</div>
+	<hr>
 	<a href="<c:url value="indice"/>"><button class="btn" type="button">Voltar</button></a>
 </div>
 </body>
