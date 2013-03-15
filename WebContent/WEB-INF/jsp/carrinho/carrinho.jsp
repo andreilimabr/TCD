@@ -18,31 +18,39 @@
 	<table class="table" style="width: 900px;">
 		<tr>
 			<td style="width:80px"><strong>Codigo</strong></td>
-			<td style="width: 200px"><strong>Produto</strong></td>
+			<td style="width:250px"><strong>Produto</strong></td>
 			<td style="width:80px"><strong>Qtde</strong></td>
-			<td><strong>Total</strong></td>
-			<td>Ações</td>
+			<td style="width:120px"><strong>Total</strong></td>
+			<td><strong>Ações</strong></td>
 		</tr>
 	</table>
-	<div id="listaItens" style="width: 900px;height: 150px;overflow-y: scroll;">	
-		<table class="table table-striped">
-			<c:forEach var="i" items="${itemCarrinhoComprasList}" >
-				<tr>
-					<td style="width: 80px">${i.produto.id}</td>
-					<td style="width: 200px">${i.produto.titulo}</td>
-					<td style="width:80px">${i.qtde}</td>
-					<td>${i.preco}</td>
-					<td><a href="<c:url value="carrinho/remove/item/${i.produto.id}"/>">Remover</a></td>
-					<c:set var="soma" value="${soma + i.preco}"/>
-				</tr>
+	<c:set var="soma" value="${0.0}"/>
+	<div id="listaItens" style="width: 900px;height: 150px;overflow-y:scroll;">	
+		<table class="table table-striped" >
+			<c:forEach var="item" varStatus="i" items="${itemCarrinhoComprasList}" >
+					<tr>
+						<td style="width:80px">${item.produto.id}</td>
+						<td style="width:250px">${item.produto.titulo}</td>
+						<td style="width:80px">${item.qtde}</td>
+						<td style="width:120px">${item.preco}</td>
+						<td><a href="<c:url value="carrinho/remove/item/${i.index}"/>">Remover</a></td>
+						<c:set var="soma" value="${soma + item.preco}"/>
+					</tr>
 			</c:forEach>	
 		</table>
 	</div>
-	<table class="table">
-		<tr><td style="width: 380px"><strong>Total geral:</strong></td><td><f:formatNumber maxFractionDigits="2" value=" ${soma}"/></td></tr>
-	</table>
-	
-	<a href="<c:url value="indice"/>"><button style="btn">Voltar</button></a>
+	<div id="sepTotais" style="width: 900px">
+		<table class="table table-striped" >
+				<tr>
+					<td style="width:80px"><strong>Valor Total:</strong></td>
+					<td style="width:250px"></td>
+					<td style="width:80px"></td>
+					<td style="width:120px"><f:formatNumber maxFractionDigits="2" value="${soma}"/></td>
+					<td></td>
+				</tr>
+		</table>
+	</div>
+	<a href="<c:url value="indice"/>"><button class="btn" type="button">Voltar</button></a>
 </div>
 </body>
 </html>

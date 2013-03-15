@@ -100,6 +100,7 @@ public class VitrineController {
 			item.setProduto(itemVitrine.getProduto());
 			item.setPreco(itemVitrine.getPreco());
 			item.setQtde(1);
+			item.setId(this.sessao.getCarrinho().getItens().size());
 			this.sessao.getCarrinho().adiciona(item);
 			return true;
 		} 

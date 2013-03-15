@@ -28,14 +28,9 @@ public class CarrinhoController {
 	
 	@Publica
 	@Path("carrinho/remove/item/{item}")
-	public void removeItemCarrinho(ItemCarrinhoCompras item){
-		List<ItemCarrinhoCompras> itens=  this.sessao.getCarrinho().getItens();
-		for (ItemCarrinhoCompras i : itens) {
-			if (i.getId()==item.getId()){
-				itens.remove(i);
-				break;
-			}
-		}
+	public void removeItemCarrinho(int item){
+		CarrinhoDeCompras carrinho = this.sessao.getCarrinho();
+		carrinho.getItens().remove(item);
 		this.result.redirectTo(CarrinhoController.class).carrinho();
 	}
 }
