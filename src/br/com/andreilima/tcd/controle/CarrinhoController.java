@@ -4,6 +4,7 @@ import java.util.List;
 
 import br.com.andreilima.tcd.model.CarrinhoDeCompras;
 import br.com.andreilima.tcd.model.ItemCarrinhoCompras;
+import br.com.caelum.vraptor.Delete;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Resource;
@@ -27,10 +28,11 @@ public class CarrinhoController {
 	}
 	
 	@Publica
-	@Path("carrinho/remove/item/{item}")
-	public void removeItemCarrinho(int item){
+	@Path("carrinho/remove/item/{item.id}")
+	@Delete
+	public void removeItemCarrinho(ItemCarrinhoCompras item){
 		CarrinhoDeCompras carrinho = this.sessao.getCarrinho();
-		carrinho.getItens().remove(item);
-		this.result.redirectTo(CarrinhoController.class).carrinho();
+		carrinho.removePorId(item);
+		this.result.nothing();
 	}
 }

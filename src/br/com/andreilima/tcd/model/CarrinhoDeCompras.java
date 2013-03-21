@@ -25,6 +25,16 @@ public class CarrinhoDeCompras {
 		this.itens.remove(item);
 		
 	}
+	public void removePorId(ItemCarrinhoCompras item){
+		int indice=0;
+		for (ItemCarrinhoCompras i : this.itens) {
+			if (item.getId()==i.getId()){
+				this.itens.remove(indice);
+				break;
+			}
+			indice++;
+		}
+	}
 	public Integer getId() {
 		return id;
 	}

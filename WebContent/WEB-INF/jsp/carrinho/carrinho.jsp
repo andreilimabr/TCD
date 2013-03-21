@@ -14,6 +14,25 @@
 <div class="container" style="margin-left: 20px">
 <script type="text/javascript" src="<c:url value='/resource/js/jquery-1.8.2.js'/>"></script>
 <script type="text/javascript" src="<c:url value='/resource/js/bootstrap.min.js'/>"></script>
+<script type="text/javascript">
+	function removeItem(id){
+		var request =$.ajax({
+			url:"<c:url value="carrinho/remove/item/"/>" + id,
+			type:"delete",
+			context:$("#row" + id)
+		});
+		request.done(
+			function(data){
+				$(this).remove();
+			}	
+		);
+		request.fail(
+				function(data){
+					alert("Não foi possível excluir o produto no carrinho!");
+				}	
+			);
+	}
+</script>
 	<h4>Seu Carrinho</h4>	
 	<table class="table" style="width: 900px;">
 		<tr>
@@ -28,12 +47,18 @@
 	<div id="listaItens" style="width: 900px;height: 150px;overflow-y:scroll;">	
 		<table class="table table-striped" >
 			<c:forEach var="item" varStatus="i" items="${itemCarrinhoComprasList}" >
-					<tr>
+					<tr id="row${i.index}">
 						<td style="width:80px">${item.produto.id}</td>
 						<td style="width:250px">${item.produto.titulo}</td>
 						<td style="width:80px">${item.qtde}</td>
 						<td style="width:120px">${item.preco}</td>
-						<td><a href="<c:url value="carrinho/remove/item/${i.index}"/>">Remover</a></td>
+						<td>
+							<!-- 
+							<a href="<c:url value="carrinho/remove/item/${i.index}"/>">Remover
+							</a>
+							-->
+							<button class="btn btn-link" type="button" onclick="removeItem(${item.id})">Remover</button>
+						</td>
 						<c:set var="soma" value="${soma + item.preco}"/>
 					</tr>
 			</c:forEach>	
@@ -52,6 +77,7 @@
 	</div>
 	<hr>
 	<a href="<c:url value="indice"/>"><button class="btn" type="button">Voltar</button></a>
+	
 </div>
 </body>
 </html>
