@@ -66,12 +66,11 @@ public class VitrineController {
 		} finally {
 			em.close();
 		}
-		
-		
+			
 		 
 	}
 	
-	
+
 	
 	@Publica
 	public void comprar(ItemVitrine item) {

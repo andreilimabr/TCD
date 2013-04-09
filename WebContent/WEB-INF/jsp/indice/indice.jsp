@@ -17,7 +17,7 @@
 	function comprar(id,lista){
 		
 		var request =$.ajax({
-			url:"indice/comprar",
+			url:"vitrine/comprar",
 			type:"POST",
 			data: "item.id=" + id,
 			context: $("#" + lista)

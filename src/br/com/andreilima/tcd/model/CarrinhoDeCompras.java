@@ -10,6 +10,7 @@ public class CarrinhoDeCompras {
 	private Integer id;
 	private List<ItemCarrinhoCompras> itens;
 	private Cliente cliente;
+	private double total;
 
 	public CarrinhoDeCompras() {
 		this.itens = new ArrayList<ItemCarrinhoCompras>();
@@ -19,22 +20,16 @@ public class CarrinhoDeCompras {
 	}
 	public void adiciona(ItemCarrinhoCompras item) {
 		this.itens.add(item);
+		this.total +=(item.getPreco() * item.getQtde());
 	}
 	
 	public void remove(int item) {
+		ItemCarrinhoCompras it = this.getItens().get(item);
+		this.total -=(it.getPreco() * it.getQtde());
 		this.itens.remove(item);
 		
 	}
-	public void removePorId(ItemCarrinhoCompras item){
-		int indice=0;
-		for (ItemCarrinhoCompras i : this.itens) {
-			if (item.getId()==i.getId()){
-				this.itens.remove(indice);
-				break;
-			}
-			indice++;
-		}
-	}
+	
 	public Integer getId() {
 		return id;
 	}
@@ -55,6 +50,12 @@ public class CarrinhoDeCompras {
 			}
 		}
 		return false;
+	}
+	public double getTotal() {
+		return total;
+	}
+	public void setTotal(double total) {
+		this.total = total;
 	}
 
 

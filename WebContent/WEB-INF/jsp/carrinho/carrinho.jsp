@@ -24,6 +24,13 @@
 		request.done(
 			function(data){
 				$(this).remove();
+				
+				$.getJSON("<c:url value="carrinho/total"/>",
+					function (json){
+						$("#txtSoma").html(json.carrinhoDeCompras.total);
+					}
+				);
+				
 			}	
 		);
 		request.fail(
@@ -70,7 +77,7 @@
 					<td style="width:80px"><strong>Valor Total:</strong></td>
 					<td style="width:250px"></td>
 					<td style="width:80px"></td>
-					<td style="width:120px"><f:formatNumber maxFractionDigits="2" value="${soma}"/></td>
+					<td style="width:120px" id="txtSoma"><f:formatNumber maxFractionDigits="2" value="${soma}"/></td>
 					<td></td>
 				</tr>
 		</table>
