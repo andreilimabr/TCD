@@ -16,6 +16,8 @@
 <script type="text/javascript">
 	function comprar(id,lista){
 		
+		$("#" + lista).html("<img src=<c:url value="/resource/img/lightbox-ico-loading.gif"/> />");
+		
 		var request =$.ajax({
 			url:"vitrine/comprar",
 			type:"POST",

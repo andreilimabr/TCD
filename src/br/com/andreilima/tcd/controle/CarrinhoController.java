@@ -44,6 +44,7 @@ public class CarrinhoController {
 		for (ItemCarrinhoCompras i : itens ) {
 			if (item.getId()==i.getId()){
 				total -=(i.getPreco() * i.getQtde());
+				total = Math.round(total * 100.00)/100.00;
 				carrinho.setTotal(total);
 				itens.remove(indice);
 				break;

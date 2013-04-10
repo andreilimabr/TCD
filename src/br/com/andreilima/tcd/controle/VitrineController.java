@@ -97,7 +97,7 @@ public class VitrineController {
 		if (itemVitrine != null) {
 			ItemCarrinhoCompras item = new ItemCarrinhoCompras();
 			item.setProduto(itemVitrine.getProduto());
-			item.setPreco(itemVitrine.getPreco());
+			item.setPreco(Math.round(itemVitrine.getPreco()*100.00)/100.00);
 			item.setQtde(1);
 			item.setId(this.sessao.getCarrinho().getItens().size());
 			this.sessao.getCarrinho().adiciona(item);

@@ -58,7 +58,7 @@
 						<td style="width:80px">${item.produto.id}</td>
 						<td style="width:250px">${item.produto.titulo}</td>
 						<td style="width:80px">${item.qtde}</td>
-						<td style="width:120px">${item.preco}</td>
+						<td style="width:120px"><f:formatNumber maxFractionDigits="2" value="${item.preco}"/></td>
 						<td>
 							<!-- 
 							<a href="<c:url value="carrinho/remove/item/${i.index}"/>">Remover
@@ -77,7 +77,7 @@
 					<td style="width:80px"><strong>Valor Total:</strong></td>
 					<td style="width:250px"></td>
 					<td style="width:80px"></td>
-					<td style="width:120px" id="txtSoma"><f:formatNumber maxFractionDigits="2" value="${soma}"/></td>
+					<td style="width:120px"  id="txtSoma" ><f:formatNumber maxFractionDigits="2" value="${soma}"/></td>
 					<td></td>
 				</tr>
 		</table>
