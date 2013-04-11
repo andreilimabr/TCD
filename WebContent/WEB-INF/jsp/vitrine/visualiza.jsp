@@ -10,7 +10,7 @@
 				 		<td><img src="<c:url value='/resource/img/ico_carrinho_peq.gif' />" /></td>
 				 	</c:if>
 				 	<c:if test="${not item.noCarrinho}">
-				 		<td><a href="#" onclick="comprar(${item.id },'${item.vitrine.categoria}')">Comprar</a></td>
+				 		<td id="${item.vitrine.categoria}_${item.id }"><a href="#" onclick="comprar(${item.id },'${item.vitrine.categoria}')">Comprar</a></td>
 				 	</c:if>
 				</tr> 
 			</c:forEach>

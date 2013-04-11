@@ -10,7 +10,7 @@
 				 		<td>Carr.</td>
 				 	</c:if>
 				 	<c:if test="${not item.noCarrinho}">
-				 		<td><a href="#" onclick="comprar(${item.id })">Comprar</a></td>
+				 		<td id="${item.vitrine.categoria}_${item.id }"><a href="#" onclick="comprar(${item.id })">Comprar</a></td>
 				 	</c:if>
 				</tr> 
 			</c:forEach>

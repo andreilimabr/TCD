@@ -83,8 +83,8 @@
 		</table>
 	</div>
 	<hr>
-	<a href="<c:url value="indice"/>"><button class="btn" type="button">Voltar</button></a>
-	
+	<a href="<c:url value="indice"/>"><button class="btn" type="button">Retornar</button></a>
+	<a href="<c:url value="compra/identificacao/cliente/"/>"><button class="btn btn-success" type="button">comprar</button></a>
 </div>
 </body>
 </html>

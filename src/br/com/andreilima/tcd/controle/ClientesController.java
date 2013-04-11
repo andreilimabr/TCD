@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import br.com.andreilima.tcd.dao.ClienteDAO;
 import br.com.andreilima.tcd.model.Cliente;
 import br.com.andreilima.tcd.util.JPAUtil;
+import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
 
@@ -44,6 +45,7 @@ public class ClientesController {
 		this.result.redirectTo(ClientesController.class).listaClientes();
 	}
 	
+	@Path("compra/identificacao/cliente/{cliente.id}")
 	public Cliente alteraCliente(Cliente cliente){
 		EntityManager em = new JPAUtil().getEntityManager();
 		Cliente busca = new ClienteDAO(em).busca(cliente.getId());

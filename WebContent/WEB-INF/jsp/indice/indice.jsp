@@ -15,8 +15,8 @@
 <script type="text/javascript" src="<c:url value='/resource/js/bootstrap.min.js'/>"></script>
 <script type="text/javascript">
 	function comprar(id,lista){
-		
-		$("#" + lista).html("<img src=<c:url value="/resource/img/lightbox-ico-loading.gif"/> />");
+		img =$("<img/>").attr("src","<c:url value="/resource/img/lightbox-ico-loading.gif"/>");
+		$("#" + lista + "_" + id).html(img);
 		
 		var request =$.ajax({
 			url:"vitrine/comprar",
@@ -142,7 +142,7 @@
 									 		<td><img src="<c:url value='/resource/img/ico_carrinho_peq.gif' />" /></td>
 									 	</c:if>
 									 	<c:if test="${not item.noCarrinho}">
-									 		<td><a href="#" onclick="comprar(${item.id },'${item.vitrine.categoria}')">Comprar</a></td>
+									 		<td id="${item.vitrine.categoria}_${item.id }"><a href="#" onclick="comprar(${item.id },'${item.vitrine.categoria}')">Comprar</a></td>
 									 	</c:if>
 									</tr> 
 								</c:forEach>
@@ -161,7 +161,7 @@
 									 		<td><img src="<c:url value='/resource/img/ico_carrinho_peq.gif' />" /></td>
 									 	</c:if>
 									 	<c:if test="${not item.noCarrinho}">
-									 		<td><a href="#" onclick="comprar(${item.id },'${item.vitrine.categoria}')">Comprar</a></td>
+									 		<td id="${item.vitrine.categoria}_${item.id }"><a href="#" onclick="comprar(${item.id },'${item.vitrine.categoria}')">Comprar</a></td>
 									 	</c:if>
 									</tr> 
 								</c:forEach>
