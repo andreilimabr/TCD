@@ -16,29 +16,33 @@ public class LoginController {
 		this.sessao = sessao;
 	}
 	
+	
 	@Publica
 	@Get("login")
-	public void login(){
+	public void loginCliente(){
 		
 	}
 	
 	@Publica
 	@Post("autenticar")
-	public void	autenticar(Usuario usuario) {
+	public void	autenticar(Usuario usuario, String uriTo) {
 		Usuario usuarioLogado = new ControlaAutenticacao().autenticar(usuario.getNome(), usuario.getSenha());
 		if (usuarioLogado != null){
 			this.sessao.setUsuario(usuarioLogado);
-			this.result.redirectTo(IndiceController.class).indice();
+			//this.result.redirectTo(IndiceController.class).indice();
+			this.result.redirectTo(uriTo);
+			
 		} else {
 			this.result.include("erro",true);
-			this.result.redirectTo(LoginController.class).login();
+			this.result.redirectTo(LoginController.class).loginCliente();
+			
 		}
 	}
 	
 	@Get("logout")
 	public void logout() {
 		this.sessao.logout();
-		result.redirectTo(this).login();
+		result.redirectTo(this).loginCliente();
 	}
 	
 	

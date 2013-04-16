@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
 import br.com.andreilima.tcd.model.Cliente;
+import br.com.andreilima.tcd.model.Usuario;
 
 public class ClienteDAO {
 	private EntityManager entityManager;
@@ -38,6 +39,11 @@ public class ClienteDAO {
 	public Cliente busca(Integer id){
 		Query query = this.entityManager.createQuery("select c from Cliente c where c.id =:id");
 		query.setParameter("id", id);
+		return (Cliente)query.getSingleResult();
+	}
+	public Cliente buscaPorUsuario(Usuario usuario){
+		Query query = this.entityManager.createQuery("select c from Cliente c left join c.usuario u where u.id =:id");
+		query.setParameter("id", usuario.getId());
 		return (Cliente)query.getSingleResult();
 	}
 	

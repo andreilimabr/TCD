@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 
 import br.com.caelum.vraptor.ioc.Component;
@@ -25,6 +26,9 @@ public class Cliente {
 	private CarrinhoDeCompras carrinho;
 	@OneToMany(cascade=CascadeType.ALL,mappedBy="cliente")
 	private List<Pedido> pedidos;
+	@OneToOne
+	private Usuario usuario;
+	private String cep;
 	
 	
 	public String getNome() {
@@ -71,6 +75,18 @@ public class Cliente {
 	
 	public void adicionaPedido(Pedido pedido) {
 		this.pedidos.add(pedido);
+	}
+	public Usuario getUsuario() {
+		return usuario;
+	}
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+	public String getCep() {
+		return cep;
+	}
+	public void setCep(String cep) {
+		this.cep = cep;
 	}
 	
 }

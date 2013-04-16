@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Cadastrar novo cliente</title>
+<title>Identificação do cliente</title>
 
 <link rel="stylesheet" href="<c:url value='/resource/css/bootstrap.min.css'/>">
 </head>
@@ -14,11 +14,12 @@
 <script type="text/javascript" src="<c:url value='/resource/js/bootstrap.min.js'/>"></script>
 <div class="container" style="margin-left:20px">
 <form action="adiciona" method="post">
-	<legend>Cadastro de Clientes</legend>
-	<label>Nome:</label><input type="text" name="cliente.nome" /><br/>
+	<legend>Cadastrar novo Cliente</legend>
+	<label>Nome:</label><input type="text" name="cliente.nome" value="${novoCliente.nome}" /><br/>
 	<label>Endereco:</label><input type="text" name="cliente.endereco"/><br/>
 	<label>CPF:</label><input type="text" name="cliente.cpf"/><br/>
 	<label>E-Mail:</label><input type="text" name="cliente.email"/><br/>
+	<label>Cep:</label><input type="text" name="cliente.cep"/><br/>
 	<button type="submit" class="btn">Salvar</button>&nbsp;<a href="<c:url value='listaClientes'/>"><button type="button" class="btn">Voltar</button></a>
 </form>
 
