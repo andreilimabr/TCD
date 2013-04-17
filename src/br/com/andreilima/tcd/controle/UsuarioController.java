@@ -1,5 +1,7 @@
 package br.com.andreilima.tcd.controle;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
@@ -13,6 +15,7 @@ import br.com.caelum.vraptor.view.Results;
 @Resource
 public class UsuarioController {
 private Result result;
+
 	
 	public UsuarioController(Result result){
 		this.result = result;
@@ -22,6 +25,7 @@ private Result result;
 		
 	}
 	
+	@SuppressWarnings("unchecked")
 	public void adiciona(Usuario usuario){
 		EntityManager em = new JPAUtil().getEntityManager();
 		DAO<Usuario> dao = new DAO<Usuario>(em,Usuario.class);
@@ -29,12 +33,16 @@ private Result result;
 					" where u.nome =:nome";
 		Query query = em.createQuery(jpql);
 		query.setParameter("nome", usuario.getNome().toUpperCase());
-		if (query.getResultList().size()==0) {
+		List<Integer> lista = query.getResultList();
+		if (lista.size()==0) {
 			usuario.setNome(usuario.getNome().toUpperCase());
 			dao.adiciona(usuario);
+			lista = query.getResultList();
+			usuario.setId(lista.get(0));
 			this.result.use(Results.status()).ok();
 		} else {
-			this.result.notFound();
+			usuario.setId(lista.get(0));
+			this.result.use(Results.status()).accepted();
 		}
 		em.close();
 	}

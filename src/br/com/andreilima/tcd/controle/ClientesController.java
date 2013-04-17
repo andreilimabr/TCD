@@ -3,6 +3,7 @@ package br.com.andreilima.tcd.controle;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.servlet.http.HttpServletResponse;
 
 import br.com.andreilima.tcd.dao.ClienteDAO;
 import br.com.andreilima.tcd.dao.DAO;
@@ -18,10 +19,12 @@ public class ClientesController {
 	
 	private Result result;
 	private SessaoUsuario sessao;
+	private HttpServletResponse response;
 	
-	public ClientesController(Result result, SessaoUsuario sessao){
+	public ClientesController(Result result, SessaoUsuario sessao, HttpServletResponse response){
 		this.result = result;
 		this.sessao = sessao;
+		this.response = response;
 	}
 	
 	@Publica
@@ -30,11 +33,30 @@ public class ClientesController {
 		this.result.include("novoCliente", cliente);
 	}
 	
-	public void adiciona(Cliente cliente){
-		EntityManager em = new JPAUtil().getEntityManager();
-		new ClienteDAO(em).adiciona(cliente);
-		em.close();
-		this.result.redirectTo(ClientesController.class).listaClientes();
+
+	@Publica
+	public void adiciona(Cliente cliente, String confirmaSenha){
+		// verifica a senha
+		Usuario usuario = cliente.getUsuario();
+		if (! usuario.getSenha().equals(confirmaSenha)){
+			this.result.include("erro",true);
+			this.result.redirectTo(ClientesController.class).cadastraCliente(cliente);
+		} else {
+			EntityManager em = new JPAUtil().getEntityManager();
+			// adiciona o usuario
+			usuario.setNome(cliente.getNome());
+			usuario.setAdministrador(false);
+			
+			this.result.forwardTo(UsuarioController.class).adiciona(usuario);
+			if (this.response.getStatus() == HttpServletResponse.SC_OK){
+				new ClienteDAO(em).adiciona(cliente);
+				em.close();
+				this.result.forwardTo(ClientesController.class).listaClientes();
+			} else {
+				this.result.include("erroExiste",true);
+				this.result.forwardTo(this).cadastraCliente(cliente);
+			}
+		}	
 	}
 	
 	public List<Cliente> listaClientes() {

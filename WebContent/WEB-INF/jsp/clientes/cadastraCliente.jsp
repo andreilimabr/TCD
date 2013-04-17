@@ -14,13 +14,28 @@
 <script type="text/javascript" src="<c:url value='/resource/js/bootstrap.min.js'/>"></script>
 <div class="container" style="margin-left:20px">
 <form action="adiciona" method="post">
-	<legend>Cadastrar novo Cliente</legend>
+	<legend>Novo cliente</legend>
 	<label>Nome:</label><input type="text" name="cliente.nome" value="${novoCliente.nome}" /><br/>
 	<label>Endereco:</label><input type="text" name="cliente.endereco"/><br/>
 	<label>CPF:</label><input type="text" name="cliente.cpf"/><br/>
 	<label>E-Mail:</label><input type="text" name="cliente.email"/><br/>
 	<label>Cep:</label><input type="text" name="cliente.cep"/><br/>
-	<button type="submit" class="btn">Salvar</button>&nbsp;<a href="<c:url value='listaClientes'/>"><button type="button" class="btn">Voltar</button></a>
+	<hr/>
+	<label>Senha:</label><input type="password" name="cliente.usuario.senha"/><br/>
+	<label>Confirma Senha:</label><input type="password" name="confirmaSenha"/><br/>	
+	<c:if test="${erro}">
+		 <div class="alert" style="width: 400px">
+		    <button type="button" class="close" data-dismiss="alert">×</button>
+		    <strong>Atenção!</strong> senhas não conferem
+		</div>
+	</c:if>
+	<c:if test="${erroExiste}">
+		 <div class="alert" style="width: 400px">
+		    <button type="button" class="close" data-dismiss="alert">×</button>
+		    <strong>Atenção!</strong> Usuário já existe.
+		</div>
+	</c:if>
+	<button type="submit" class="btn btn-success">Confirmar</button>&nbsp;<a href="<c:url value='listaClientes'/>"><button type="button" class="btn">Voltar</button></a>
 </form>
 
 </div>
