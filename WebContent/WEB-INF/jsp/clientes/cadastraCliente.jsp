@@ -15,24 +15,18 @@
 <div class="container" style="margin-left:20px">
 <form action="adiciona" method="post">
 	<legend>Novo cliente</legend>
-	<label>Nome:</label><input type="text" name="cliente.nome" value="${novoCliente.nome}" /><br/>
-	<label>Endereco:</label><input type="text" name="cliente.endereco"/><br/>
-	<label>CPF:</label><input type="text" name="cliente.cpf"/><br/>
-	<label>E-Mail:</label><input type="text" name="cliente.email"/><br/>
-	<label>Cep:</label><input type="text" name="cliente.cep"/><br/>
+	<label>Nome:</label><input type="text" name="cliente.nome" pattern="[A-Z|a-z]+." value="${cliente.nome}" required /><br/>
+	<label>Endereco:</label><input type="text" name="cliente.endereco" value="${cliente.endereco}" required /><br/>
+	<label>CPF:</label><input type="number" name="cliente.cpf" pattern="[0-9]{11}" value="${cliente.cpf}" required /><br/>
+	<label>E-Mail:</label><input type="email" name="cliente.email" value="${cliente.email}" required   /><br/>
+	<label>Cep:</label><input type="number" name="cliente.cep" pattern="[0-9]{8}" value="${cliente.cep}" required /><br/>
 	<hr/>
-	<label>Senha:</label><input type="password" name="cliente.usuario.senha"/><br/>
-	<label>Confirma Senha:</label><input type="password" name="confirmaSenha"/><br/>	
-	<c:if test="${erro}">
-		 <div class="alert" style="width: 400px">
+	<label>Senha:</label><input type="password" name="cliente.usuario.senha" required  /><br/>
+	<label>Confirma Senha:</label><input type="password" name="confirmaSenha" required  /><br/>	
+	<c:if test="${not empty msgErro}">
+		 <div class="alert alert-error" style="width: 400px">
 		    <button type="button" class="close" data-dismiss="alert">×</button>
-		    <strong>Atenção!</strong> senhas não conferem
-		</div>
-	</c:if>
-	<c:if test="${erroExiste}">
-		 <div class="alert" style="width: 400px">
-		    <button type="button" class="close" data-dismiss="alert">×</button>
-		    <strong>Atenção!</strong> Usuário já existe.
+		    <strong>Atenção!</strong> ${msgErro} 
 		</div>
 	</c:if>
 	<button type="submit" class="btn btn-success">Confirmar</button>&nbsp;<a href="<c:url value='listaClientes'/>"><button type="button" class="btn">Voltar</button></a>

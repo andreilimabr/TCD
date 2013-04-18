@@ -3,7 +3,6 @@ package br.com.andreilima.tcd.controle;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.servlet.http.HttpServletResponse;
 
 import br.com.andreilima.tcd.dao.ClienteDAO;
 import br.com.andreilima.tcd.dao.DAO;
@@ -19,44 +18,40 @@ public class ClientesController {
 	
 	private Result result;
 	private SessaoUsuario sessao;
-	private HttpServletResponse response;
+	private UsuarioController usuarioControler;
 	
-	public ClientesController(Result result, SessaoUsuario sessao, HttpServletResponse response){
+	public ClientesController(Result result, SessaoUsuario sessao,UsuarioController usuarioControler){
 		this.result = result;
 		this.sessao = sessao;
-		this.response = response;
+		this.usuarioControler = usuarioControler;
 	}
 	
 	@Publica
 	@Path("/clientes/cadastro")
 	public void cadastraCliente(Cliente cliente) {
-		this.result.include("novoCliente", cliente);
+		this.result.include("cliente", cliente);
 	}
 	
 
 	@Publica
 	public void adiciona(Cliente cliente, String confirmaSenha){
-		// verifica a senha
-		Usuario usuario = cliente.getUsuario();
-		if (! usuario.getSenha().equals(confirmaSenha)){
-			this.result.include("erro",true);
-			this.result.redirectTo(ClientesController.class).cadastraCliente(cliente);
-		} else {
+			Usuario usuario = cliente.getUsuario();
 			EntityManager em = new JPAUtil().getEntityManager();
-			// adiciona o usuario
-			usuario.setNome(cliente.getNome());
-			usuario.setAdministrador(false);
-			
-			this.result.forwardTo(UsuarioController.class).adiciona(usuario);
-			if (this.response.getStatus() == HttpServletResponse.SC_OK){
+			try {
+				// checa o cadastro
+				checaCadastro(cliente,confirmaSenha);
+				// adiciona o usuario
+				usuario.setNome(cliente.getNome());
+				usuario.setAdministrador(false);
+				this.usuarioControler.adiciona(usuario);
 				new ClienteDAO(em).adiciona(cliente);
-				em.close();
-				this.result.forwardTo(ClientesController.class).listaClientes();
-			} else {
-				this.result.include("erroExiste",true);
+				this.result.redirectTo(CarrinhoController.class).carrinho();
+			} catch (RuntimeException e) {
+				this.result.include("msgErro",e.getMessage());
 				this.result.forwardTo(this).cadastraCliente(cliente);
+			} finally{
+				em.close();
 			}
-		}	
 	}
 	
 	public List<Cliente> listaClientes() {
@@ -114,5 +109,34 @@ public class ClientesController {
 		this.result.forwardTo(ClientesController.class).alteraCliente(cliente);
 	}
 	
+	private void checaCadastro(Cliente cliente, String confirmaSenha) throws RuntimeException {
+		
+		if (cliente.getNome()== null){
+			throw new RuntimeException("Por favor informe seu nome de usuário.");
+		}
+		if (cliente.getEndereco()== null){
+			throw new RuntimeException("Por favor informe seu endereco.");
+		}
+		if (cliente.getCpf()== null){
+			throw new RuntimeException("Por favor informe seu cpf.");
+		}
+		if (cliente.getEmail()== null){
+			throw new RuntimeException("Por favor informe seu E-Mail.");
+		}
+		if (cliente.getCep()== null){
+			throw new RuntimeException("Por favor informe seu Cep.");
+		}
+		// senhas
+		if (cliente.getUsuario().getSenha() == null){
+			throw new RuntimeException("Por favor, informe uma senha válida.");
+		}
+		if (confirmaSenha == null){
+			throw new RuntimeException("Por favor, confirme a sua senha.");
+		}
+		if ( ! cliente.getUsuario().getSenha().equals(confirmaSenha)){
+			throw new RuntimeException("As senhas não conferem. por favor, tente novamente.");
+		}
+		
+	}
 	
 }
