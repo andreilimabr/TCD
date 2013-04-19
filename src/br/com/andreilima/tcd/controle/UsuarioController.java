@@ -4,6 +4,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
 import br.com.andreilima.tcd.dao.DAO;
+import br.com.andreilima.tcd.exception.ValidacaoException;
 import br.com.andreilima.tcd.model.Usuario;
 import br.com.andreilima.tcd.util.JPAUtil;
 import br.com.caelum.vraptor.Resource;
@@ -16,7 +17,7 @@ public class UsuarioController {
 		
 	}
 	
-	public void adiciona(Usuario usuario) throws RuntimeException{
+	public void adiciona(Usuario usuario) throws ValidacaoException{
 		EntityManager em = new JPAUtil().getEntityManager();
 		DAO<Usuario> dao = new DAO<Usuario>(em,Usuario.class);
 		String jpql="select u.id from Usuario u " +
@@ -36,7 +37,7 @@ public class UsuarioController {
 				id = (Integer)query.getSingleResult();
 				usuario.setId(id);
 			} else {
-				throw new RuntimeException("Nome de usuário já existe, por favor informe outro nome.");
+				throw new ValidacaoException("Nome de usuário já existe, por favor informe outro nome.");
 			}	
 			em.close();
 		}

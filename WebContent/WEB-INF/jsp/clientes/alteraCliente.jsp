@@ -14,7 +14,7 @@
 <script type="text/javascript" src="<c:url value='/resource/js/bootstrap.min.js'/>"></script>
 <div class="container" style="margin-left:20px">
 <form action="<c:url value="/clientes/altera"/>" method="post">
-	<legend>Confirme seus dados</legend>	
+	<legend>Por favor,confirme seus dados</legend>	
 	<label>Nome:</label><input type="text" name="cliente.nome" value="${cliente.nome}" /><br/>
 	<label>Endereco:</label><input type="text" name="cliente.endereco" value="${cliente.endereco }"/><br/>
 	<label>CPF:</label><input type="text" name="cliente.cpf" value="${cliente.cpf }"/><br/>
@@ -31,7 +31,7 @@
 	</c:if>
 	<input type="hidden" name ="cliente.id" value="${cliente.id}">
 	<input type="hidden" name ="cliente.usuario.id" value="${cliente.usuario.id}">	
-	<button type="submit" class="btn">Salvar</button>&nbsp;<a href="<c:url value='listaClientes'/>"><button type="button" class="btn">Voltar</button></a>
+	<button type="submit" class="btn">Salvar</button>
 </form>
 </div>
 </body>	

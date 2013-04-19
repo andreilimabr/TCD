@@ -1,5 +1,6 @@
 package br.com.andreilima.tcd.controle;
 
+import br.com.andreilima.tcd.model.Cliente;
 import br.com.andreilima.tcd.model.Usuario;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Post;
@@ -10,10 +11,12 @@ import br.com.caelum.vraptor.Result;
 public class LoginController {
 	private Result result;
 	private SessaoUsuario sessao;
+	private ClientesController clientesController;
 	
-	public LoginController(Result result, SessaoUsuario sessao){
+	public LoginController(Result result, SessaoUsuario sessao, ClientesController clientesController){
 		this.result = result;
 		this.sessao = sessao;
+		this.clientesController = clientesController;
 	}
 	
 	
@@ -30,6 +33,8 @@ public class LoginController {
 		if (usuarioLogado != null){
 			this.sessao.setUsuario(usuarioLogado);
 			//this.result.redirectTo(IndiceController.class).indice();
+			Cliente clienteSessao = this.clientesController.getClienteSessao();
+			this.result.include("cliente",clienteSessao);
 			this.result.redirectTo(uriTo);
 			
 		} else {

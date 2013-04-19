@@ -6,9 +6,11 @@ import javax.persistence.EntityManager;
 
 import br.com.andreilima.tcd.dao.ClienteDAO;
 import br.com.andreilima.tcd.dao.DAO;
+import br.com.andreilima.tcd.exception.ValidacaoException;
 import br.com.andreilima.tcd.model.Cliente;
 import br.com.andreilima.tcd.model.Usuario;
 import br.com.andreilima.tcd.util.JPAUtil;
+import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
@@ -32,7 +34,16 @@ public class ClientesController {
 		this.result.include("cliente", cliente);
 	}
 	
-
+	@Get
+	@Path("compra/identificacao/cliente/confirma")
+	public void confirmaEndereco(Cliente cliente) {
+		// se nao for passado o cluente tenta pegar o cliente da sessão
+		if (cliente.getId()==null){
+			cliente = this.getClienteSessao();
+		}
+		this.result.include("cliente", cliente);
+	}
+	
 	@Publica
 	public void adiciona(Cliente cliente, String confirmaSenha){
 			Usuario usuario = cliente.getUsuario();
@@ -45,10 +56,12 @@ public class ClientesController {
 				usuario.setAdministrador(false);
 				this.usuarioControler.adiciona(usuario);
 				new ClienteDAO(em).adiciona(cliente);
-				this.result.redirectTo(CarrinhoController.class).carrinho();
-			} catch (RuntimeException e) {
+				this.result.redirectTo(this).confirmaEndereco(cliente);
+			} catch (ValidacaoException e) {
 				this.result.include("msgErro",e.getMessage());
 				this.result.forwardTo(this).cadastraCliente(cliente);
+			} catch (RuntimeException i){
+				i.printStackTrace();
 			} finally{
 				em.close();
 			}
@@ -98,15 +111,19 @@ public class ClientesController {
 			em.close();
 		}
 		
-		this.result.redirectTo(ClientesController.class).listaClientes();
+		this.result.redirectTo(ClientesController.class).confirmaEndereco(cliente);
 	}
 	
-	@Path("compra/identificacao/cliente/")
+	@Path("compra/identificacao/cliente")
 	public void identificacao() {
+		this.result.forwardTo(ClientesController.class).alteraCliente(this.getClienteSessao());
+	}
+	
+	public Cliente getClienteSessao() {
 		// pega o cliente, a partir do usuário
 		EntityManager em = new JPAUtil().getEntityManager();
 		Cliente cliente = new ClienteDAO(em).buscaPorUsuario(this.sessao.getUsuario());
-		this.result.forwardTo(ClientesController.class).alteraCliente(cliente);
+		return cliente;
 	}
 	
 	private void checaCadastro(Cliente cliente, String confirmaSenha) throws RuntimeException {
