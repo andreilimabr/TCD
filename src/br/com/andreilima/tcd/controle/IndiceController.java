@@ -44,7 +44,7 @@ public class IndiceController {
 			this.result.include("vendidosList",itemVitrine4);
 			// usuário logado
 			if (this.sessao.isLogado()){
-				this.result.include("usuarioLogado"," Olá," + this.sessao.getUsuario().getNome() + "! Seja Bem Vindo!");
+				this.result.include("usuarioLogado"," Olá," + this.sessao.getUsuario().getNome() + "! Seja Bem Vindo(a)!");
 			} else {
 				this.result.include("usuarioLogado","");
 			}

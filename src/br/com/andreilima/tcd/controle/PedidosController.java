@@ -26,7 +26,7 @@ private Result result;
 		EntityManager em = new JPAUtil().getEntityManager();
 		new DAO<Pedido>(em,Pedido.class).adiciona(pedido);
 		em.close();
-		this.result.redirectTo(PedidosController.class).listaPedidos();
+		//this.result.redirectTo(PedidosController.class).listaPedidos();
 	}
 	
 	public List<Pedido> listaPedidos() {

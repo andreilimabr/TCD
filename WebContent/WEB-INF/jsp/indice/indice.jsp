@@ -61,7 +61,7 @@
 				<tr><td style="width: 25px"><button class="btn" style="width: 150px">Blue Rays</button></td></tr>
 				<tr><td style="width: 25px"><button class="btn" style="width: 150px">Boxes</button></td></tr>
 				<tr><td style="width: 25px"><hr style="width: 150px" /></td></tr>
-				<tr><td style="width: 25px"><button class="btn" style="width: 150px">Trocar CDs</button></td></tr>
+				<tr><td style="width: 25px"><a class="btn" href="<c:url value="forum/indice"/>" style="width: 150px">Trocar CDs</a></td></tr>
 				<tr><td style="width: 25px"><button class="btn" style="width: 150px">Comunidade</button></td></tr>
 			</table>
 		</div>
@@ -83,6 +83,7 @@
 						<form action="autenticar" method="post" class="form-inline">
 							<input type="text" class="input-small"  placeholder="Usuário" name="usuario.nome">
 							<input type="password" class="input-small"  placeholder="Senha" name="usuario.senha">
+							<input type="hidden" value="/indice" name="uriTo">
 							<button class="btn" type="submit">Login</button>	
 						</form>
 					</td>

@@ -3,10 +3,12 @@ package br.com.andreilima.tcd.controle;
 import java.util.Calendar;
 import java.util.List;
 
+import br.com.andreilima.tcd.model.CarrinhoDeCompras;
 import br.com.andreilima.tcd.model.ItemCarrinhoCompras;
 import br.com.andreilima.tcd.model.ItemPedido;
 import br.com.andreilima.tcd.model.Pedido;
 import br.com.andreilima.tcd.model.StatusPedido;
+import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
@@ -32,6 +34,8 @@ public class PagamentoController {
 		return itens;
 	}
 	
+	@Get
+	@Path("compra/pedido/gerapedido")
 	public void geraPedido() {
 		Pedido pedido = new Pedido();
 		List<ItemCarrinhoCompras> itens = this.sessao.getCarrinho().getItens();
@@ -41,6 +45,7 @@ public class PagamentoController {
 			itemPedido.setQtde(itemCarrinhoCompras.getQtde());
 			itemPedido.setUnitario(itemCarrinhoCompras.getPreco());
 			itemPedido.setTotal(itemCarrinhoCompras.getPreco() * itemCarrinhoCompras.getQtde());
+			itemPedido.setPedido(pedido);
 			pedido.adicionaItem(itemPedido);
 		}
 		pedido.setTotal(this.sessao.getCarrinho().getTotal());
@@ -48,7 +53,14 @@ public class PagamentoController {
 		pedido.setData(Calendar.getInstance());
 		pedido.setCliente(this.clientesController.getClienteSessao());
 		this.pedidosController.adiciona(pedido);
-		
+		// zera o carrinho
+		this.sessao.setCarrinho(new CarrinhoDeCompras());
+		this.result.redirectTo(this).confirmacaoDeCompra(pedido);
+	}
+	
+	@Path("compra/confirmacao")
+	public void confirmacaoDeCompra(Pedido pedido) {
+		this.result.include("pedido",pedido);
 	}
 	
 }

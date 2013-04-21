@@ -60,7 +60,7 @@
 			Cartão de crédito
 		</label>
 		<hr/>
-		<a href="<c:url value="/indice" />" class="btn" >Continuar Comprando</a>&nbsp;<a class="btn btn-success">Avançar</a>
+		<a href="<c:url value="/indice" />" class="btn" >Continuar Comprando</a>&nbsp;<a class="btn btn-success" href='<c:url value="/compra/pedido/gerapedido"/>' >Avançar</a>
 	</div>
 	
 	

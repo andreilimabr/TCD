@@ -16,6 +16,8 @@
       <class>br.com.andreilima.tcd.model.ItemVitrine</class>
       <class>br.com.andreilima.tcd.model.Produto</class>
       <class>br.com.andreilima.tcd.model.CategoriaProduto</class>
+      <class>br.com.andreilima.tcd.model.Topico</class>
+      <class>br.com.andreilima.tcd.model.Post</class>
       <properties>
         
         <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect"/>
