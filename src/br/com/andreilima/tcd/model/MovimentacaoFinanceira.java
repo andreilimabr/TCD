@@ -7,8 +7,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="movimentacaofinanceira")
 public class MovimentacaoFinanceira {
 	@Id
 	@GeneratedValue
@@ -56,7 +58,7 @@ public class MovimentacaoFinanceira {
 	public void setValorPago(double valor) {
 		double soma = this.getSoma();
 		if(valor < soma){
-			throw new RuntimeException("Valor pago informado é menor do que o valor total");
+			throw new RuntimeException("Valor pago informado ï¿½ menor do que o valor total");
 		}
 		this.valorPago = valor;
 		this.setTroco(valor - soma);

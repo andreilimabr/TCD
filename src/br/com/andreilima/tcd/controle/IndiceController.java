@@ -42,9 +42,9 @@ public class IndiceController {
 			// mais vendidos
 			List<ItemVitrine> itemVitrine4 = this.controleVitrine.getMaisVendidos();
 			this.result.include("vendidosList",itemVitrine4);
-			// usuário logado
+			// usuï¿½rio logado
 			if (this.sessao.isLogado()){
-				this.result.include("usuarioLogado"," Olá," + this.sessao.getUsuario().getNome() + "! Seja Bem Vindo(a)!");
+				this.result.include("usuarioLogado"," OlÃ¡," + this.sessao.getUsuario().getNome() + "! Seja Bem Vindo(a)!");
 			} else {
 				this.result.include("usuarioLogado","");
 			}

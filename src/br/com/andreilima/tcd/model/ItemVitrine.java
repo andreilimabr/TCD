@@ -6,12 +6,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import br.com.caelum.vraptor.ioc.Component;
 
 @Component
 @Entity
+@Table(name="itemvitrine")
 public class ItemVitrine implements ProdutoVenda {
 	@Id
 	@GeneratedValue

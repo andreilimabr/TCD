@@ -35,7 +35,7 @@
 	<form class="form form-inline" method="post" id="frmForum">
 	<table class="table" style="width:900px">
 		<tr>
-			<td style="width:70%"><input type="text" placeholder="Digite o Tópico aqui" style="width:500px" name="topico"/></td>
+			<td style="width:70%"><input type="text" placeholder="Digite o Tópico aqui" style="width:500px" name="topico" required="true"/></td>
 			<td><button class="btn" onclick="execute('<c:url value="/forum/busca"/>');">Buscar Tópico</button></td>
 			<td><button class="btn" onclick="execute('<c:url value="/forum/criar"/>');">Criar Tópico</button></td>
 		</tr>

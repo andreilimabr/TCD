@@ -8,11 +8,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import br.com.caelum.vraptor.ioc.Component;
 
 @Entity
+@Table(name="cliente")
 @Component
 public class Cliente {
 	@Id

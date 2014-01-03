@@ -12,10 +12,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import br.com.caelum.vraptor.ioc.Component;
 
 @Entity
+@Table(name="pedido")
 @Component
 public class Pedido {
 	@Id
